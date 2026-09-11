@@ -131,12 +131,16 @@ create table build_mascota_habilidades (
 -- updated_at automático
 -- ============================================================
 
-create function set_updated_at() returns trigger as $$
+create function set_updated_at()
+returns trigger
+language plpgsql
+set search_path = ''
+as $$
 begin
   new.updated_at = now();
   return new;
 end;
-$$ language plpgsql;
+$$;
 
 create trigger builds_set_updated_at
   before update on builds
@@ -146,14 +150,18 @@ create trigger builds_set_updated_at
 -- Límite de 10 builds por usuario (decidido en la etapa de auth)
 -- ============================================================
 
-create function check_limite_builds() returns trigger as $$
+create function check_limite_builds()
+returns trigger
+language plpgsql
+set search_path = ''
+as $$
 begin
-  if (select count(*) from builds where user_id = new.user_id) >= 10 then
+  if (select count(*) from public.builds where user_id = new.user_id) >= 10 then
     raise exception 'Límite de 10 builds guardados alcanzado';
   end if;
   return new;
 end;
-$$ language plpgsql;
+$$;
 
 create trigger builds_check_limite
   before insert on builds
