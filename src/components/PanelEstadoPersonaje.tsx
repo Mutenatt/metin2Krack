@@ -5,6 +5,7 @@ import { calcularDano, type StatsPersonaje } from "@/lib/calculo/calcularDano";
 import { puntosDisponibles } from "@/lib/calculo/puntosDisponibles";
 import { NumeroAnimado } from "./NumeroAnimado";
 import { PanelCuenta } from "./PanelCuenta";
+import { MarcoOrnamental } from "./MarcoOrnamental";
 
 const ETIQUETAS_STATS = [
   { clave: "vit", etiqueta: "VIT" },
@@ -31,16 +32,17 @@ export function PanelEstadoPersonaje() {
   }
 
   return (
-    <aside className="w-full max-w-sm shrink-0 border-2 border-bronce bg-pergamino/95 p-5 text-foreground shadow-lg shadow-black/40">
-      <h2 className="font-display text-3xl text-oro">Estado del Personaje</h2>
+    <aside className="panel-pergamino w-full max-w-sm shrink-0 p-6 text-foreground">
+      <MarcoOrnamental />
+      <h2 className="font-display text-4xl leading-tight text-oro">Estado del Personaje</h2>
 
-      <div className="mt-4 space-y-3">
+      <div className="mt-5 space-y-3">
         <label className="block">
-          <span className="font-technical text-xs uppercase tracking-wide text-bronce">Raza</span>
+          <span className="etiqueta-campo">Raza</span>
           <select
             value={raza}
             onChange={(e) => setRaza(e.target.value as (typeof RAZAS)[number])}
-            className="mt-1 w-full border border-bronce bg-tinta px-2 py-1 font-sans text-sm"
+            className="campo campo-select"
           >
             {RAZAS.map((r) => (
               <option key={r} value={r}>
@@ -52,65 +54,59 @@ export function PanelEstadoPersonaje() {
 
         <div className="grid grid-cols-2 gap-3">
           <label className="block">
-            <span className="font-technical text-xs uppercase tracking-wide text-bronce">Nivel</span>
+            <span className="etiqueta-campo">Nivel</span>
             <input
               type="number"
               min={1}
               value={nivel}
               onChange={(e) => setNivel(Math.max(1, Number(e.target.value) || 1))}
-              className="mt-1 w-full border border-bronce bg-tinta px-2 py-1 font-mono text-sm"
+              className="campo font-mono"
             />
           </label>
           <label className="block">
-            <span className="font-technical text-xs uppercase tracking-wide text-bronce">
-              Nivel Campeón
-            </span>
+            <span className="etiqueta-campo">Nivel Campeón</span>
             <input
               type="number"
               min={0}
               value={nivelCampeon}
               onChange={(e) => setNivelCampeon(Math.max(0, Number(e.target.value) || 0))}
-              className="mt-1 w-full border border-bronce bg-tinta px-2 py-1 font-mono text-sm"
+              className="campo font-mono"
             />
           </label>
         </div>
       </div>
 
-      <div className="mt-5">
+      <div className="mt-6">
         <div className="flex flex-wrap items-baseline justify-between gap-x-2 gap-y-1">
-          <span className="font-technical text-xs uppercase tracking-wide text-bronce">
-            Puntos de estado
-          </span>
+          <span className="etiqueta-campo mb-0">Puntos de estado</span>
           <span
             className={`font-mono text-xs ${
               puntosRestantes === 0 ? "text-verdin" : "text-foreground/70"
             }`}
           >
-            Puntos disponibles: {puntosRestantes}
+            Disponibles: {puntosRestantes}
           </span>
         </div>
 
         <div className="mt-2 grid grid-cols-2 gap-3">
           {ETIQUETAS_STATS.map(({ clave, etiqueta }) => (
             <label key={clave} className="block">
-              <span className="font-technical text-xs text-bronce">{etiqueta}</span>
+              <span className="etiqueta-campo">{etiqueta}</span>
               <input
                 type="number"
                 min={0}
                 value={stats[clave]}
                 onChange={(e) => handleStatChange(clave, Number(e.target.value))}
-                className="mt-1 w-full border border-bronce bg-tinta px-2 py-1 font-mono text-sm"
+                className="campo font-mono"
               />
             </label>
           ))}
         </div>
       </div>
 
-      <div className="mt-6 border-t border-bronce pt-4">
-        <span className="font-technical text-xs uppercase tracking-wide text-bronce">
-          Daño total (placeholder)
-        </span>
-        <div className="font-display text-4xl text-sello">
+      <div className="mt-7 border-t border-bronce/50 pt-5">
+        <span className="etiqueta-campo">Daño total (placeholder)</span>
+        <div className="numero-hero font-display text-5xl leading-none text-sello">
           <NumeroAnimado valor={resultado.total} />
         </div>
       </div>

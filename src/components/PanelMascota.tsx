@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useBuildStore } from "@/store/buildStore";
 import { listarHabilidadesMascota, type MascotaHabilidad } from "@/lib/supabase/mascotas";
+import { MarcoOrnamental } from "./MarcoOrnamental";
 
 const CAMPOS = [
   { clave: "nivel", etiqueta: "Nivel" },
@@ -21,30 +22,27 @@ export function PanelMascota() {
   }, []);
 
   return (
-    <div className="mx-auto w-full max-w-md border-2 border-bronce bg-pergamino/95 p-5">
-      <h3 className="font-display text-2xl text-oro">Mascota</h3>
+    <div className="panel-pergamino mx-auto w-full max-w-md p-6">
+      <MarcoOrnamental />
+      <h3 className="font-display text-3xl text-oro">Mascota</h3>
 
-      <div className="mt-4 grid grid-cols-2 gap-3">
+      <div className="mt-5 grid grid-cols-2 gap-3">
         {CAMPOS.map(({ clave, etiqueta }) => (
           <label key={clave} className="block">
-            <span className="font-technical text-xs uppercase tracking-wide text-bronce">
-              {etiqueta}
-            </span>
+            <span className="etiqueta-campo">{etiqueta}</span>
             <input
               type="number"
               min={0}
               value={mascota[clave]}
               onChange={(e) => setMascotaCampo(clave, Math.max(0, Number(e.target.value) || 0))}
-              className="mt-1 w-full border border-bronce bg-tinta px-2 py-1 font-mono text-sm"
+              className="campo font-mono"
             />
           </label>
         ))}
       </div>
 
-      <div className="mt-5">
-        <span className="font-technical text-xs uppercase tracking-wide text-bronce">
-          Habilidades activas
-        </span>
+      <div className="mt-6">
+        <span className="etiqueta-campo">Habilidades activas</span>
         <div className="mt-2 grid grid-cols-3 gap-2">
           {mascota.habilidades.map((habilidadId, i) => {
             const elegidasEnOtros = mascota.habilidades.filter((_, j) => j !== i);
@@ -56,7 +54,7 @@ export function PanelMascota() {
                 onChange={(e) =>
                   setMascotaHabilidad(i, e.target.value ? Number(e.target.value) : null)
                 }
-                className="border border-bronce bg-tinta px-1 py-1 font-sans text-xs"
+                className="campo campo-select px-1.5 py-1 text-xs"
               >
                 <option value="">Ninguna</option>
                 {opciones.map((h) => (

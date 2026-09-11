@@ -36,16 +36,14 @@ export function ModalLogin({ onCerrar }: ModalLoginProps) {
         </p>
       ) : (
         <>
-          <label className="mt-4 block">
-            <span className="font-technical text-xs uppercase tracking-wide text-bronce">
-              Email
-            </span>
+          <label className="mt-5 block">
+            <span className="etiqueta-campo">Email</span>
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="tu@email.com"
-              className="mt-1 w-full border border-bronce bg-tinta px-2 py-1 font-sans text-sm"
+              className="campo"
             />
           </label>
 
@@ -55,22 +53,18 @@ export function ModalLogin({ onCerrar }: ModalLoginProps) {
             type="button"
             disabled={!email || enviando}
             onClick={handleEnviarMagicLink}
-            className="mt-3 w-full border border-sello bg-sello/80 px-3 py-1.5 font-technical text-sm text-foreground disabled:cursor-not-allowed disabled:opacity-40"
+            className="boton-primario mt-3 w-full"
           >
             {enviando ? "Enviando..." : "Enviar link mágico"}
           </button>
 
-          <div className="my-4 flex items-center gap-2">
-            <div className="h-px flex-1 bg-bronce/40" />
-            <span className="font-technical text-xs text-bronce/60">o</span>
-            <div className="h-px flex-1 bg-bronce/40" />
+          <div className="my-5 flex items-center gap-3">
+            <div className="h-px flex-1 bg-bronce/30" />
+            <span className="font-technical text-xs text-bronce/50">o</span>
+            <div className="h-px flex-1 bg-bronce/30" />
           </div>
 
-          <button
-            type="button"
-            onClick={() => iniciarSesionConGoogle()}
-            className="w-full border border-bronce px-3 py-1.5 font-technical text-sm text-bronce hover:text-oro"
-          >
+          <button type="button" onClick={() => iniciarSesionConGoogle()} className="boton-secundario w-full">
             Continuar con Google
           </button>
         </>

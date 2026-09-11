@@ -63,41 +63,38 @@ export function PanelCuenta() {
   if (cargando) return null;
 
   return (
-    <div className="mt-4 border-t border-bronce pt-4">
+    <div className="mt-7 border-t border-bronce/50 pt-5">
       {!user ? (
-        <button
-          type="button"
-          onClick={() => setModalLoginAbierto(true)}
-          className="w-full border border-bronce px-3 py-1.5 font-technical text-sm text-bronce hover:text-oro"
-        >
+        <button type="button" onClick={() => setModalLoginAbierto(true)} className="boton-secundario w-full">
           Iniciar sesión
         </button>
       ) : (
         <>
-          <div className="flex items-center justify-between">
-            <span className="truncate font-sans text-xs text-foreground/70">{user.email}</span>
+          <div className="flex items-center justify-between gap-2">
+            <span className="truncate font-sans text-xs text-foreground/60">{user.email}</span>
             <button
               type="button"
               onClick={() => cerrarSesion()}
-              className="font-technical text-xs text-bronce hover:text-oro"
+              className="shrink-0 font-technical text-[0.7rem] text-bronce hover:text-oro"
             >
               Cerrar sesión
             </button>
           </div>
 
-          <div className="mt-3 space-y-2">
+          <div className="mt-4 space-y-2">
             <input
               type="text"
               placeholder="Nombre del build"
               value={nombreNuevo}
               onChange={(e) => setNombreNuevo(e.target.value)}
-              className="w-full border border-bronce bg-tinta px-2 py-1 font-sans text-sm"
+              className="campo"
             />
-            <label className="flex items-center gap-2 font-sans text-xs text-foreground/70">
+            <label className="flex items-center gap-2 font-sans text-xs text-foreground/60">
               <input
                 type="checkbox"
                 checked={esPublico}
                 onChange={(e) => setEsPublico(e.target.checked)}
+                className="accent-sello"
               />
               Público (compartible por link)
             </label>
@@ -106,24 +103,22 @@ export function PanelCuenta() {
               type="button"
               disabled={!nombreNuevo || guardando}
               onClick={handleGuardar}
-              className="w-full border border-sello bg-sello/80 px-3 py-1.5 font-technical text-sm text-foreground disabled:cursor-not-allowed disabled:opacity-40"
+              className="boton-primario w-full"
             >
               {guardando ? "Guardando..." : "Guardar build"}
             </button>
           </div>
 
           {builds.length > 0 && (
-            <div className="mt-4 space-y-1">
-              <span className="font-technical text-xs uppercase tracking-wide text-bronce">
-                Mis builds
-              </span>
+            <div className="mt-5 space-y-1.5">
+              <span className="etiqueta-campo">Mis builds</span>
               {builds.map((b) => (
                 <div
                   key={b.id}
-                  className="flex items-center justify-between gap-1 border border-bronce/40 px-2 py-1"
+                  className="flex items-center justify-between gap-1 border border-bronce/30 bg-tinta/40 px-2.5 py-1.5"
                 >
                   <span className="truncate font-sans text-xs">{b.nombre}</span>
-                  <div className="flex shrink-0 gap-2 font-technical text-[10px]">
+                  <div className="flex shrink-0 gap-2.5 font-technical text-[0.65rem] uppercase tracking-wide">
                     <button type="button" onClick={() => handleCargar(b.slug)} className="text-bronce hover:text-oro">
                       Cargar
                     </button>
@@ -142,7 +137,7 @@ export function PanelCuenta() {
           {builds.length >= 2 && (
             <a
               href="/comparar"
-              className="mt-3 block text-center font-technical text-xs text-bronce hover:text-oro"
+              className="mt-4 block text-center font-technical text-xs text-bronce hover:text-oro"
             >
               Comparar builds →
             </a>

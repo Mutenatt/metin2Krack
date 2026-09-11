@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, type ReactNode } from "react";
 import { motion } from "framer-motion";
+import { MarcoOrnamental } from "./MarcoOrnamental";
 
 interface ModalBaseProps {
   titulo: string;
@@ -56,10 +57,11 @@ export function ModalBase({ titulo, onCerrar, children, maxWidthClassName = "sm:
         exit={{ opacity: 0, scale: 0.95 }}
         transition={{ duration: 0.15 }}
         onClick={(e) => e.stopPropagation()}
-        className={`relative flex h-full w-full flex-col overflow-hidden border-2 border-bronce bg-pergamino p-5 outline-none sm:h-auto sm:max-h-[80vh] sm:w-full ${maxWidthClassName}`}
+        className={`panel-pergamino flex h-full w-full flex-col overflow-hidden p-6 outline-none sm:h-auto sm:max-h-[80vh] sm:w-full ${maxWidthClassName}`}
       >
+        <MarcoOrnamental />
         <div className="flex items-center justify-between">
-          <h3 className="font-display text-2xl text-oro">{titulo}</h3>
+          <h3 className="font-display text-3xl text-oro">{titulo}</h3>
           <button
             type="button"
             onClick={onCerrar}

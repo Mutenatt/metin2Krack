@@ -19,14 +19,16 @@ export function AreaPrincipal() {
 
   return (
     <div className="flex w-full flex-col items-center">
-      <div className="mb-6 flex gap-1 border-b border-bronce">
+      <div className="mb-8 flex gap-1 border-b border-bronce/50">
         {PESTANAS.map((p) => (
           <button
             key={p.clave}
             type="button"
             onClick={() => setPestana(p.clave)}
-            className={`px-5 py-2 font-technical text-sm uppercase tracking-wide ${
-              pestana === p.clave ? "border-b-2 border-oro text-oro" : "text-bronce hover:text-oro"
+            className={`px-5 py-2.5 font-technical text-sm uppercase tracking-[0.08em] transition-colors ${
+              pestana === p.clave
+                ? "border-b-2 border-oro text-oro"
+                : "text-bronce hover:text-oro/80"
             }`}
           >
             {p.etiqueta}

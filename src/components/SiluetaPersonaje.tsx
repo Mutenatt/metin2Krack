@@ -5,6 +5,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useBuildStore } from "@/store/buildStore";
 import { SlotEquipo } from "./SlotEquipo";
 import { ModalBuscadorItems } from "./ModalBuscadorItems";
+import { SiluetaIcono } from "./SiluetaIcono";
+import { MarcoOrnamental } from "./MarcoOrnamental";
 
 const SLOTS_IZQUIERDA = [
   { codigo: "arma", etiqueta: "Arma" },
@@ -28,6 +30,27 @@ const SLOTS_ATUENDO = [
   { codigo: "vestimenta_aura", etiqueta: "Vestimenta de Aura" },
 ] as const;
 
+function SlotConEtiqueta({
+  codigo,
+  etiqueta,
+  itemEquipado,
+  onClick,
+}: {
+  codigo: string;
+  etiqueta: string;
+  itemEquipado?: ReturnType<typeof useBuildStore.getState>["equipo"][string];
+  onClick: () => void;
+}) {
+  return (
+    <div className="flex flex-col items-center gap-1.5">
+      <SlotEquipo etiqueta={etiqueta} itemEquipado={itemEquipado} onClick={onClick} />
+      <span className="font-technical text-[0.65rem] uppercase tracking-wide text-bronce/80">
+        {etiqueta}
+      </span>
+    </div>
+  );
+}
+
 export function SiluetaPersonaje() {
   const { equipo, equiparItem } = useBuildStore();
   const [vista, setVista] = useState<"equipamiento" | "atuendo">("equipamiento");
@@ -38,14 +61,16 @@ export function SiluetaPersonaje() {
   const estolaEquipada = equipo["estola"];
 
   return (
-    <div className="w-full max-w-2xl">
-      <div className="mb-4 flex gap-1 border-b border-bronce">
+    <div className="panel-pergamino w-full max-w-2xl p-6">
+      <MarcoOrnamental />
+
+      <div className="mb-6 flex gap-1 border-b border-bronce/50">
         {(["equipamiento", "atuendo"] as const).map((v) => (
           <button
             key={v}
             type="button"
             onClick={() => setVista(v)}
-            className={`px-4 py-2 font-technical text-sm uppercase tracking-wide ${
+            className={`px-4 py-2 font-technical text-sm uppercase tracking-wide transition-colors ${
               vista === v ? "border-b-2 border-oro text-oro" : "text-bronce hover:text-oro"
             }`}
           >
@@ -62,12 +87,13 @@ export function SiluetaPersonaje() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.15 }}
-            className="flex items-start justify-center gap-8"
+            className="flex items-start justify-center gap-10"
           >
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-4">
               {SLOTS_IZQUIERDA.map((s) => (
-                <SlotEquipo
+                <SlotConEtiqueta
                   key={s.codigo}
+                  codigo={s.codigo}
                   etiqueta={s.etiqueta}
                   itemEquipado={equipo[s.codigo]}
                   onClick={() => setSlotAbierto(s)}
@@ -75,14 +101,15 @@ export function SiluetaPersonaje() {
               ))}
             </div>
 
-            <div className="flex h-64 w-40 items-center justify-center border-2 border-dashed border-bronce/30 font-technical text-xs text-bronce/50">
-              Silueta
+            <div className="flex h-64 w-36 items-center justify-center border border-bronce/25 bg-tinta/40 p-6">
+              <SiluetaIcono />
             </div>
 
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-4">
               {SLOTS_DERECHA.map((s) => (
-                <SlotEquipo
+                <SlotConEtiqueta
                   key={s.codigo}
+                  codigo={s.codigo}
                   etiqueta={s.etiqueta}
                   itemEquipado={equipo[s.codigo]}
                   onClick={() => setSlotAbierto(s)}
@@ -97,17 +124,16 @@ export function SiluetaPersonaje() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.15 }}
-            className="flex flex-wrap justify-center gap-4"
+            className="flex flex-wrap justify-center gap-6"
           >
             {SLOTS_ATUENDO.map((s) => (
-              <div key={s.codigo} className="flex flex-col items-center gap-1">
-                <SlotEquipo
-                  etiqueta={s.etiqueta}
-                  itemEquipado={equipo[s.codigo]}
-                  onClick={() => setSlotAbierto(s)}
-                />
-                <span className="font-technical text-[10px] text-bronce">{s.etiqueta}</span>
-              </div>
+              <SlotConEtiqueta
+                key={s.codigo}
+                codigo={s.codigo}
+                etiqueta={s.etiqueta}
+                itemEquipado={equipo[s.codigo]}
+                onClick={() => setSlotAbierto(s)}
+              />
             ))}
             {estolaEquipada?.item.porcentaje_absorcion != null && (
               <p className="w-full text-center font-mono text-xs text-verdin">

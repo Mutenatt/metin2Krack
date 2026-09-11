@@ -9,6 +9,7 @@ import {
   type BuildResumen,
 } from "@/lib/supabase/builds";
 import { calcularDano } from "@/lib/calculo/calcularDano";
+import { MarcoOrnamental } from "@/components/MarcoOrnamental";
 
 function SelectorBuild({
   builds,
@@ -20,11 +21,7 @@ function SelectorBuild({
   onChange: (slug: string) => void;
 }) {
   return (
-    <select
-      value={valor}
-      onChange={(e) => onChange(e.target.value)}
-      className="w-full border border-bronce bg-tinta px-2 py-1 font-sans text-sm"
-    >
+    <select value={valor} onChange={(e) => onChange(e.target.value)} className="campo campo-select">
       <option value="">Elegir build...</option>
       {builds.map((b) => (
         <option key={b.id} value={b.slug}>
@@ -81,7 +78,7 @@ export default function CompararPage() {
   if (!user) {
     return (
       <div className="flex min-h-full items-center justify-center bg-tinta p-6 text-foreground">
-        <p className="font-sans text-sm text-foreground/70">
+        <p className="font-sans text-sm text-foreground/60">
           Iniciá sesión para comparar tus builds guardados.
         </p>
       </div>
@@ -92,17 +89,18 @@ export default function CompararPage() {
   const resultadoB = buildB ? calcularDano({ stats: buildB.stats }) : null;
 
   return (
-    <div className="min-h-full bg-tinta p-6 text-foreground">
-      <div className="mx-auto max-w-2xl border-2 border-bronce bg-pergamino/95 p-6">
-        <h1 className="font-display text-3xl text-oro">Comparar builds</h1>
+    <div className="flex min-h-full items-start justify-center bg-tinta p-6 text-foreground sm:p-12">
+      <div className="panel-pergamino w-full max-w-2xl p-8">
+        <MarcoOrnamental />
+        <h1 className="font-display text-4xl text-oro">Comparar builds</h1>
 
-        <div className="mt-4 grid grid-cols-2 gap-4">
+        <div className="mt-5 grid grid-cols-2 gap-4">
           <SelectorBuild builds={builds} valor={slugA} onChange={setSlugA} />
           <SelectorBuild builds={builds} valor={slugB} onChange={setSlugB} />
         </div>
 
         {buildA && buildB && resultadoA && resultadoB && (
-          <div className="mt-6 border-t border-bronce pt-4">
+          <div className="mt-7 border-t border-bronce/50 pt-5">
             <FilaComparacion etiqueta="Raza" valorA={buildA.raza} valorB={buildB.raza} />
             <FilaComparacion etiqueta="Nivel" valorA={buildA.nivel} valorB={buildB.nivel} />
             <FilaComparacion
