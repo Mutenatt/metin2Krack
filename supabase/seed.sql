@@ -57,6 +57,22 @@ insert into items_base (nombre, tipo_slot_id, nivel_requerido, stats_base, porce
   ('Estola de Iniciado', (select id from tipos_slot where codigo = 'estola'), 1, '{}', 5.0),
   ('Aura Menor del Dragón', (select id from tipos_slot where codigo = 'vestimenta_aura'), 1, '{}', null);
 
+-- Bonos de ejemplo por piedra dragón (Fase 3)
+
+insert into piedras_dragon_bonos (piedra_id, nombre, valor_min, valor_max) values
+  ((select id from piedras_dragon where nombre = 'Diamante'), 'Resistencia a Media', 1, 5),
+  ((select id from piedras_dragon where nombre = 'Diamante'), 'Daño de Media', 1, 5),
+  ((select id from piedras_dragon where nombre = 'Rubí'), 'Daño Crítico', 1, 5),
+  ((select id from piedras_dragon where nombre = 'Rubí'), 'Resistencia a Crítico', 1, 5),
+  ((select id from piedras_dragon where nombre = 'Jade'), 'HP Añadido', 10, 50),
+  ((select id from piedras_dragon where nombre = 'Jade'), 'SP Añadido', 10, 50),
+  ((select id from piedras_dragon where nombre = 'Zafiro'), 'Resistencia a Media', 1, 5),
+  ((select id from piedras_dragon where nombre = 'Zafiro'), 'Velocidad de Ataque', 1, 3),
+  ((select id from piedras_dragon where nombre = 'Granate'), 'Daño de Media', 1, 5),
+  ((select id from piedras_dragon where nombre = 'Granate'), 'Defensa Añadida', 5, 20),
+  ((select id from piedras_dragon where nombre = 'Ónice'), 'Resistencia a Media', 1, 5),
+  ((select id from piedras_dragon where nombre = 'Ónice'), 'Daño de Media', 1, 5);
+
 insert into item_bonos_disponibles (item_base_id, bono_id, valor_min, valor_max)
 select
   (select id from items_base where nombre = 'Espada del Dragón de Metin'),
