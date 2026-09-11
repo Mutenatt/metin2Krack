@@ -40,7 +40,7 @@ export function RuedaAlquimia() {
             type="button"
             onClick={() => setPiedraAbierta(piedra)}
             style={{ transform: `translate(${x}px, ${y}px)` }}
-            className="absolute left-1/2 top-1/2 -ml-8 -mt-8 flex h-16 w-16 flex-col items-center justify-center rounded-full border-2 border-bronce bg-tinta text-center hover:border-oro"
+            className="absolute left-1/2 top-1/2 -ml-8 -mt-8 flex h-16 w-16 flex-col items-center justify-center rounded-full border-2 border-bronce bg-tinta text-center transition-all duration-200 hover:border-oro hover:shadow-[0_0_10px_2px_rgba(201,162,39,0.45)]"
           >
             <span className="font-technical text-[10px] text-bronce">{piedra.nombre}</span>
             {seleccion ? (

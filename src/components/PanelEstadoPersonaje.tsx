@@ -4,6 +4,7 @@ import { RAZAS, useBuildStore } from "@/store/buildStore";
 import { calcularDano, type StatsPersonaje } from "@/lib/calculo/calcularDano";
 import { puntosDisponibles } from "@/lib/calculo/puntosDisponibles";
 import { NumeroAnimado } from "./NumeroAnimado";
+import { PanelCuenta } from "./PanelCuenta";
 
 const ETIQUETAS_STATS = [
   { clave: "vit", etiqueta: "VIT" },
@@ -113,6 +114,8 @@ export function PanelEstadoPersonaje() {
           <NumeroAnimado valor={resultado.total} />
         </div>
       </div>
+
+      <PanelCuenta />
     </aside>
   );
 }

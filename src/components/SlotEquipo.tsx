@@ -13,7 +13,7 @@ export function SlotEquipo({ etiqueta, itemEquipado, onClick }: SlotEquipoProps)
     <button
       type="button"
       onClick={onClick}
-      className="group relative flex h-16 w-16 flex-col items-center justify-center border-2 border-bronce bg-tinta text-foreground transition-colors hover:border-oro"
+      className="group relative flex h-16 w-16 flex-col items-center justify-center border-2 border-bronce bg-tinta text-foreground transition-all duration-200 hover:border-oro hover:shadow-[0_0_10px_2px_rgba(201,162,39,0.45)]"
     >
       {itemEquipado ? (
         <>
