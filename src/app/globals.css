@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+:root {
+  /* Grimorio de Alquimista — ver prompt.md */
+  --color-tinta: #161310;
+  --color-pergamino: #2b2620;
+  --color-bronce: #8a6a3d;
+  --color-oro: #c9a227;
+  --color-sello: #a8342a;
+  --color-verdin: #5f7a6e;
+
+  --background: var(--color-tinta);
+  --foreground: #e4dcc8;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-tinta: var(--color-tinta);
+  --color-pergamino: var(--color-pergamino);
+  --color-bronce: var(--color-bronce);
+  --color-oro: var(--color-oro);
+  --color-sello: var(--color-sello);
+  --color-verdin: var(--color-verdin);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
